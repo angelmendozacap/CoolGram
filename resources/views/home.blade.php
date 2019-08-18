@@ -7,15 +7,15 @@
         <img src="https://instagram.flim5-3.fna.fbcdn.net/vp/94cf09b364ffc1947032d2621aaa1b79/5DDBFE38/t51.2885-19/s150x150/22709172_932712323559405_7810049005848625152_n.jpg?_nc_ht=instagram.flim5-3.fna.fbcdn.net" alt="Foto del perfil de freecodecamp" class="rounded-circle">
       </div>
       <div class="col-12 col-md-8">
-        <h1 class="font-weight-lighter">CoolGram</h1>
+        <h1 class="font-weight-lighter">{{ $user->username }}</h1>
         <div class="d-flex mb-3">
           <div class="mr-5"><strong>153</strong> publicaciones</div>
           <div class="mr-5"><strong>23k</strong> seguidores</div>
           <div class=""><strong>230</strong> seguidos</div>
         </div>
-        <b>freeCodeCamp.org</b>
-        <p class="mb-0">We're a global community of millions of people learning to code together. We're an open source, donor-supported, 501(c)(3) nonprofit.</p>
-        <a href="www.freecodecamp.org">www.freecodecamp.org</a>
+        <b>{{ $user->profile->title }}</b>
+        <p class="mb-0">{{ $user->profile->description }}</p>
+        <a href="{{ $user->profile->url ?? '#' }}">{{ $user->profile->url ?? 'N/D' }}</a>
       </div>
     </div>
     <div class="row">
