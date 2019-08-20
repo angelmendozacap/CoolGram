@@ -8,6 +8,6 @@ class ProfilesController extends Controller
 {
     public function show(User $user)
     {
-        return view('home')->with(compact('user'));
+        return view('profiles.index')->with(compact('user'));
     }
 }
