@@ -4,17 +4,25 @@
   <div class="container mt-5">
     <div class="row mb-5">
       <div class="col-12 col-md-4 px-5 d-flex justify-content-center align-items-start">
-        <img src="https://instagram.flim5-3.fna.fbcdn.net/vp/94cf09b364ffc1947032d2621aaa1b79/5DDBFE38/t51.2885-19/s150x150/22709172_932712323559405_7810049005848625152_n.jpg?_nc_ht=instagram.flim5-3.fna.fbcdn.net" alt="Foto del perfil de freecodecamp" class="rounded-circle">
+        <img src="{{ $user->profile->profileImage() }}" class="rounded-circle img-fluid" alt="{{ $user->username }}">
       </div>
       <div class="col-12 col-md-8">
-        <div class="d-flex justify-content-between align-items-center">
-          <h1 class="font-weight-lighter">{{ $user->username }}</h1>
-          <a href="{{ route('p.create') }}">Agrega una Nueva Publicación</a>
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-2">
+          <div class="d-flex align-items-center">
+            <h1 class="font-weight-lighter mb-0">{{ $user->username }}</h1>
+            @can('update', $user->profile)
+              <a href="{{ route('profile.edit', ['user' => $user->id]) }}" class="ml-3 btn btn-sm btn-outline-secondary">Editar Perfil</a>
+            @endcan
+            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+          </div>
+          @can('update', $user->profile)
+            <a class="btn btn-sm btn-outline-primary" href="{{ route('p.create') }}">Agrega una Nueva Publicación</a>
+          @endcan
         </div>
         <div class="d-flex mb-3">
           <div class="mr-5"><strong>{{ $user->posts->count() }}</strong> publicaciones</div>
-          <div class="mr-5"><strong>23k</strong> seguidores</div>
-          <div class=""><strong>230</strong> seguidos</div>
+          <div class="mr-5"><strong>{{ $user->profile->followers->count() }}</strong> seguidores</div>
+          <div class=""><strong>{{ $user->following->count() }}</strong> siguiendo</div>
         </div>
         <b>{{ $user->profile->title }}</b>
         <p class="mb-0">{{ $user->profile->description }}</p>
