@@ -13,16 +13,19 @@
             @can('update', $user->profile)
               <a href="{{ route('profile.edit', ['user' => $user->id]) }}" class="ml-3 btn btn-sm btn-outline-secondary">Editar Perfil</a>
             @endcan
-            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+
+            @cannot('update', $user->profile)
+              <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+            @endcannot
           </div>
           @can('update', $user->profile)
             <a class="btn btn-sm btn-outline-primary" href="{{ route('p.create') }}">Agrega una Nueva Publicación</a>
           @endcan
         </div>
         <div class="d-flex mb-3">
-          <div class="mr-5"><strong>{{ $user->posts->count() }}</strong> publicaciones</div>
-          <div class="mr-5"><strong>{{ $user->profile->followers->count() }}</strong> seguidores</div>
-          <div class=""><strong>{{ $user->following->count() }}</strong> siguiendo</div>
+          <div class="mr-5"><strong>{{ $postsCount }}</strong> publicaciones</div>
+          <div class="mr-5"><strong>{{ $followersCount }}</strong> seguidores</div>
+          <div class=""><strong>{{ $followingsCount }}</strong> siguiendo</div>
         </div>
         <b>{{ $user->profile->title }}</b>
         <p class="mb-0">{{ $user->profile->description }}</p>
